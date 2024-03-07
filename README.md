@@ -11,45 +11,45 @@ Les données sont en format JSON.
 Dans ce projet, nous allons nous intéresser aux monstres, la liste est disponible ici https://www.dnd5eapi.co/api/monsters
 On peut ensuite accéder aux caractéristiques  d'un monstre en particulier et nous trouvons les données suivantes (par exemple dnd5eapi.co/api/monsters/ancient-brass-dragon)
 
-1. Attributs de base :
-	• index: Identifiant unique du monstre.
-	• name: Nom du monstre.
-	• size: Taille du monstre (ex. Gargantuan).
-	• type: Type de créature (ex. dragon).
-	• alignment: Alignement du monstre (ex. chaotic good).
-	• armor_class: Tableau contenant la classe d'armure du monstre (valeur de dé nécessaire pour le blesser).
-	• hit_points: Points de vie du monstre.
-	• hit_dice: Expression décrivant le nombre et le type de dés utilisés pour calculer les points de vie.
-	• hit_points_roll: Expression complète pour calculer les points de vie.
-	• speed: Vitesse et type de déplacement (ex. burrow, fly).
+1. Attributs de base :  
+	• index: Identifiant unique du monstre.  
+	• name: Nom du monstre.  
+	• size: Taille du monstre (ex. Gargantuan).  
+	• type: Type de créature (ex. dragon).  
+	• alignment: Alignement du monstre (ex. chaotic good).  
+	• armor_class: Tableau contenant la classe d'armure du monstre (valeur de dé nécessaire pour le blesser).  
+	• hit_points: Points de vie du monstre.  
+	• hit_dice: Expression décrivant le nombre et le type de dés utilisés pour calculer les points de vie.  
+	• hit_points_roll: Expression complète pour calculer les points de vie.  
+	• speed: Vitesse et type de déplacement (ex. burrow, fly).  
 
 2. Attributs de Caractéristiques :
-	• strength, dexterity, constitution, intelligence, wisdom, charisma: Valeurs des caractéristiques du monstre.
+	• strength, dexterity, constitution, intelligence, wisdom, charisma: Valeurs des caractéristiques du monstre.  
 
 3. Compétences et Sauvegardes :
-	• les attributs qui ont un bonus de maîtrise pour résister aux événements (sorts, poison) et la valeur totale qui en résulte.
+	• les attributs qui ont un bonus de maîtrise pour résister aux événements (sorts, poison) et la valeur totale qui en résulte.  
 
 4. Résistances et Immunités :
-	• damage_vulnerabilities, damage_resistances, damage_immunities : Impacts des types de dégâts sur les monstres, condition_immunities : immunités aux états (ex. peur, paralysie).
+	• damage_vulnerabilities, damage_resistances, damage_immunities : Impacts des types de dégâts sur les monstres, condition_immunities : immunités aux états (ex. peur, paralysie).  
 
 5. Sens :
-	• senses: Informations sur les sens du monstre, comme le blindsight, darkvision, et la perception passive.
+	• senses: Informations sur les sens du monstre, comme le blindsight, darkvision, et la perception passive.  
 
 6. Langues et Autres Caractéristiques :
-	• languages: Langues que le monstre peut comprendre et parler.
-	• challenge_rating: Puissance du monstre.
-	• proficiency_bonus: Bonus de maîtrise du monstre.
-	• xp: Points d'expérience attribués pour la victoire contre ce monstre.
+	• languages: Langues que le monstre peut comprendre et parler.  
+	• challenge_rating: Puissance du monstre.  
+	• proficiency_bonus: Bonus de maîtrise du monstre.  
+	• xp: Points d'expérience attribués pour la victoire contre ce monstre.  
 
 7. Capacités Spéciales et Actions :
-	• special_abilities: Capacités spéciales du monstre (ex. Legendary Resistance).
-	• actions: Actions que le monstre peut entreprendre en combat (ex. Multiattack, Bite, Claw).
+	• special_abilities: Capacités spéciales du monstre (ex. Legendary Resistance).  
+	• actions: Actions que le monstre peut entreprendre en combat (ex. Multiattack, Bite, Claw).  
 
 8. Légendaires Actions :
-	• legendary_actions: Actions légendaires que le monstre peut entreprendre en combat après le tour d'un autre personnage (ex. Detect, Tail Attack, Wing Attack).
+	• legendary_actions: Actions légendaires que le monstre peut entreprendre en combat après le tour d'un autre personnage (ex. Detect, Tail Attack, Wing Attack).  
 
 9. URL de Référence :
-	• url: URL spécifique pour accéder aux détails complets du monstre.
+	• url: URL spécifique pour accéder aux détails complets du monstre.  
 
 
 
