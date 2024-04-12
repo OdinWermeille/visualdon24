@@ -73,7 +73,8 @@ Ou simplement pour initier et informer les personnes qui ne connaitraient pas ou
 
 Suite à des recherches, nous constatons que les informations disponibles sur l'utilisation de l'API de Donjons et Dragons 5e édition sont limitées.  
 Cependant, quelques projets spécifiques sont évoqués sur des forums, par exemple un utilisateur exprime le souhait de développer une feuille de personnage dynamique sous Excel en utilisant les données du character builder du site.  
-Cette démarche témoigne de la volonté de la communauté de créer des solutions innovantes pour faciliter l'expérience des joueurs et du Maître du Donjon.  
+Cette démarche témoigne de la volonté de la communauté de créer des solutions innovantes pour faciliter l'expérience des joueurs et du Maître du Donjon. 
+Nous avons également mis à contribution les efforts d'un utilisateur de GitHub : Valloric (Val Markovic) et de ses collaboratuers qui ont développé une méthode pour afficher un bloc de statistiques de monstre de la 5ème édition de Donjons et Dragons en HTML et JS en 2019.
 Nous avons également trouvé une offre de service où un créateur propose d'aider les joueurs de Donjons et Dragons en créant des personnages.  
 Le service comprend le remplissage de la fiche de personnage.  
 Les clients peuvent choisir la classe et la race ou laisser le créateur choisir au hasard.
