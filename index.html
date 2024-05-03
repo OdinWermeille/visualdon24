@@ -38,104 +38,230 @@
             margin-left: 20px;
             margin-top: 20px;
         }
+
+        #scrolly {
+			position: relative;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			background-color: #f3f3f3;
+			padding: 1rem;
+		}
+
+		#scrolly>* {
+			-webkit-box-flex: 1;
+			-ms-flex: 1;
+			flex: 1;
+		}
+
+		article {
+			position: relative;
+			padding: 0 1rem;
+			max-width: 20rem;
+		}
+
+		/* figure {
+			position: -webkit-sticky;
+			position: sticky;
+			width: 100%;
+			margin: 0;
+			-webkit-transform: translate3d(0, 0, 0);
+			-moz-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+			background-color: #8a8a8a;
+			z-index: 0;
+		} */
+
+		figure>p {
+			text-align: center;
+			padding: 1rem;
+			position: absolute;
+			top: 0%;
+			left: 50%;
+			-moz-transform: translate(-50%, -50%);
+			-webkit-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			font-size: 8rem;
+			font-weight: 900;
+			color: #fff;
+		}
+
+		.step {
+			margin: 25rem auto 25rem auto;
+			background-color: #3b3b3b;
+			color: #fff;
+		}
+
+		.step:last-child {
+			margin-bottom: 60rem;
+		}
+
+		.step.is-active {
+			background-color: goldenrod;
+			color: #3b3b3b;
+		}
+
+		.step p {
+			text-align: center;
+			padding: 1rem;
+			font-size: 1.5rem;
+		}
     </style>
 </head>
 <body>
+    <section id="scrolly">
+        <article>
+        <div class="step" data-step="1">
+            <p>1</p>
+        </div>
+        <div class="step" data-step="2">
+            <p>2</p>
+        </div>
+        <div class="step" data-step="3">
+            <p>3</p>
+        </div>
+        <div class="step" data-step="4">
+            <p>4</p>
+        </div>
+        <div class="step" data-step="5">
+            <p>5</p>
+        </div>
+        <div class="step" data-step="6">
+            <p>6</p>
+        </div>
+        <div class="step" data-step="7">
+            <p>7</p>
+        </div>
+        <div class="step" data-step="8">
+            <p>8</p>
+        </div>
+        <div class="step" data-step="9">
+            <p>9</p>
+        </div>
+        <div class="step" data-step="10">
+            <p>10</p>
+        </div>
+        <div class="step" data-step="11">
+            <p>11</p>
+        </div>
+        <div class="step" data-step="12">
+            <p>12</p>
+        </div>
+        <div class="step" data-step="13">
+            <p>13</p>
+        </div>
+        <div class="step" data-step="14">
+            <p>14</p>
+        </div>
+        <div class="step" data-step="15">
+            <p>15</p>
+        </div>
+        <div class="step" data-step="16">
+            <p>16</p>
+        </div>
+        <div class="step" data-step="17">
+            <p>17</p>
+        </div>
+        <div class="step" data-step="18">
+            <p>18</p>
+        </div>
+    </article>
     <figure>
-    <stat-block data-two-column style="--data-content-height: 900px;">
-        <creature-heading>
-            <h1>Animated Armor</h1>
-            <h2>Medium construct, unaligned</h2>
-        </creature-heading>
+        <stat-block data-two-column style="--data-content-height: 900px;">
+            <creature-heading>
+                <h1>Animated Armor</h1>
+                <h2>Medium construct, unaligned</h2>
+            </creature-heading>
   
-        <top-stats>
-            <property-line>
-                <h4>Armor Class</h4>
-                <p>18 (natural armor)</p>
-            </property-line>
-            <property-line>
-                <h4>Hit Points</h4>
-                <p>33 (6d8 + 6)</p>
-            </property-line>
-            <property-line>
-                <h4>Speed</h4>
-                <p>25ft</p>
-            </property-line>
+            <top-stats>
+                <property-line>
+                    <h4>Armor Class</h4>
+                    <p>18 (natural armor)</p>
+                </property-line>
+                <property-line>
+                    <h4>Hit Points</h4>
+                    <p>33 (6d8 + 6)</p>
+                </property-line>
+                <property-line>
+                    <h4>Speed</h4>
+                    <p>25ft</p>
+                </property-line>
   
-            <abilities-block data-str="14"
-                             data-dex="11"
-                             data-con="13"
-                             data-int="1"
-                             data-wis="3"
-                             data-cha="1">
-            </abilities-block>
-            <property-line>
-                <h4>Saving Throws</h4>
-                <p></p>
-            </property-line>
-            <property-line>
-                <h4>Skills</h4>
-                <p></p>
-            </property-line>
-            <property-line>
-                <h4>Damage Resistances</h4>
-                <p></p>
-            </property-line>
-            <property-line>
-                <h4>Damage Immunities</h4>
-                <p>poison, psychic</p>
-            </property-line>
-            <property-line>
-                <h4>Condition Immunities</h4>
-                <p>blinded, charmed, deafened, exhaustion, frightened, paralyzed,
-                petrified, poisoned</p>
-            </property-line>
-            <property-line>
-                <h4>Senses</h4>
-                <p>blindsight 60 ft. (blind beyond this radius), passive Perception 6</p>
-            </property-line>
-            <property-line>
-                <h4>Languages</h4>
-                <p>—</p>
-            </property-line>
-            <property-line>
-                <h4>Challenge</h4>
-                <p>1 (200 XP)</p>
-                <h4>Proficiency Bonus</h4>
-                <p>2</p>
-            </property-line>
-        </top-stats>
+                <abilities-block data-str="14"
+                                 data-dex="11"
+                                 data-con="13"
+                                 data-int="1"
+                                 data-wis="3"
+                                 data-cha="1">
+                </abilities-block>
+                <property-line>
+                    <h4>Saving Throws</h4>
+                    <p></p>
+                </property-line>
+                <property-line>
+                    <h4>Skills</h4>
+                    <p></p>
+                </property-line>
+                <property-line>
+                    <h4>Damage Resistances</h4>
+                    <p></p>
+                </property-line>
+                <property-line>
+                    <h4>Damage Immunities</h4>
+                    <p>poison, psychic</p>
+                </property-line>
+                <property-line>
+                    <h4>Condition Immunities</h4>
+                    <p>blinded, charmed, deafened, exhaustion, frightened, paralyzed,
+                    petrified, poisoned</p>
+                </property-line>
+                <property-line>
+                    <h4>Senses</h4>
+                    <p>blindsight 60 ft. (blind beyond this radius), passive Perception 6</p>
+                </property-line>
+                <property-line>
+                    <h4>Languages</h4>
+                    <p>—</p>
+                </property-line>
+                <property-line>
+                    <h4>Challenge</h4>
+                    <p>1 (200 XP)</p>
+                    <h4>Proficiency Bonus</h4>
+                    <p>2</p>
+                </property-line>
+            </top-stats>
   
-        <property-block>
-            <h4>Antimagic Susceptibility.</h4>
-            <p>The armor is incapacitated while in the area of an <i>antimagic
-            field</i>.  If targeted by <i>dispel magic</i>, the armor must succeed
-            on a Constitution saving throw against the caster’s spell save DC or
-            fall unconscious for 1 minute.</p>
-        </property-block>
-        <property-block>
-            <h4>False Appearance.</h4>
-            <p>While the armor remains motionless, it is indistinguishable from a
-            normal suit of armor.</p>
-        </property-block>
+            <property-block>
+                <h4>Antimagic Susceptibility.</h4>
+                <p>The armor is incapacitated while in the area of an <i>antimagic
+                field</i>.  If targeted by <i>dispel magic</i>, the armor must succeed
+                on a Constitution saving throw against the caster’s spell save DC or
+                fall unconscious for 1 minute.</p>
+            </property-block>
+            <property-block>
+                <h4>False Appearance.</h4>
+                <p>While the armor remains motionless, it is indistinguishable from a
+                normal suit of armor.</p>
+            </property-block>
+            
+            <h3 id="actions">Actions</h3>
   
-        <h3 id="actions">Actions</h3>
+            <property-block>
+                <h4>Multiattack.</h4>
+                <p>The armor makes two melee attacks.</p>
+            </property-block>
   
-        <property-block>
-            <h4>Multiattack.</h4>
-            <p>The armor makes two melee attacks.</p>
-        </property-block>
-
-        <property-block>
-        <h4>Slam.</h4>
-        <p>
-            <i>Melee Weapon Attack:</i> +4 to hit, reach 5 ft., one target.
-            <i>Hit:</i> 5 (1d6 + 2) bludgeoning damage.
-        </p>
-        </property-block>
-    </stat-block>
+            <property-block>
+            <h4>Slam.</h4>
+            <p>
+                <i>Melee Weapon Attack:</i> +4 to hit, reach 5 ft., one target.
+                <i>Hit:</i> 5 (1d6 + 2) bludgeoning damage.
+            </p>
+            </property-block>
+        </stat-block>
     </figure>
     
+    </section>
     <script type="module" src="index.js"></script>  
 </body>
 </html>

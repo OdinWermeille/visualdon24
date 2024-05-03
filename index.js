@@ -2,6 +2,41 @@
 
 import { json } from "d3-fetch";
 import { min, max, sum, extent, mean } from "d3-array";
+import { select } from "d3-selection";
+import scrollama from "scrollama";
+
+const scrolly = select("#scrolly");
+const figure = scrolly.select("figure");
+const article = scrolly.select("article");
+const step = article.selectAll(".step");
+
+const scroller = scrollama();
+
+const monster_id = "air-elemental";
+let monster
+monsterInit(monster_id)
+function handleStepEnter(response) {
+    console.log(response);
+
+    step.classed("is-active", function (d, i) {
+        return i === response.index;
+    });
+
+    if (response.index < 0 || response.index > 17) { return }
+    showMonster(response.index)
+}
+
+function init() {
+    scroller
+        .setup({
+            step: "#scrolly .step",
+            debug: false
+        })
+        .onStepEnter(handleStepEnter);
+}
+
+init();
+
 
 async function API(url) {
     const res = await fetch(url);
@@ -27,95 +62,215 @@ const fractionize = (CR) => {
     return (CR*2)%1 ? (CR*4)%1 ? "1/8" : "1/4" : "1/2"
 }
 
+async function monsterInit(monster_id){
+    monster = await API(`https://www.dnd5eapi.co/api/monsters/${monster_id}`);
+    console.log(monster)
+    showMonster(-1)
+}
 
-async function showMonster(monster_id){
+async function showMonster(statblock_part){
     //for iterative processes
     let firstIter = true
     //some very useful selectors
     const statBlock = document.querySelector("stat-block");
-    const monster = await API(`https://www.dnd5eapi.co/api/monsters/${monster_id}`);
     const heading = statBlock.querySelector("creature-heading");
     const top = statBlock.querySelector("top-stats");
-    //monster name
-    heading.querySelector("h1").innerHTML = `${monster.name}`
+
+    switch (statblock_part) {
+        case 0:
+            //monster name
+            heading.querySelector("h1").innerHTML = `${monster.name}`
+            break;
+    
+        case 1:
+            //monster hit points
+            top.querySelector("property-line:nth-child(2) p").innerHTML = ` ${monster.hit_points} (${monster.hit_points_roll})`
+            break;
+
+        case 2:
+            //monster armor class
+            top.querySelector("property-line:nth-child(1) p").innerHTML = ` ${monster.armor_class[0].value}${monster.armor_class[0].type != "armor" ? ` (${monster.armor_class[0].type} armor)` : ""}`
+            break;
+
+        case 3:
+            //stats and modifiers
+            const statList = top.querySelector("abilities-block:nth-child(4)").shadowRoot
+            statList.querySelector("#str").innerHTML = `${monster.strength} (${(monster.strength>=10 ? "+":"")}${(monster.strength-monster.strength%2-10)/2})`
+            statList.querySelector("#dex").innerHTML = `${monster.dexterity} (${(monster.dexterity>=10 ? "+":"")}${(monster.dexterity-monster.dexterity%2-10)/2})`
+            statList.querySelector("#con").innerHTML = `${monster.constitution} (${(monster.constitution>=10 ? "+":"")}${(monster.constitution-monster.constitution%2-10)/2})`
+            statList.querySelector("#int").innerHTML = `${monster.intelligence} (${(monster.intelligence>=10 ? "+":"")}${(monster.intelligence-monster.intelligence%2-10)/2})`
+            statList.querySelector("#wis").innerHTML = `${monster.wisdom} (${(monster.wisdom>=10 ? "+":"")}${(monster.wisdom-monster.wisdom%2-10)/2})`
+            statList.querySelector("#cha").innerHTML = `${monster.charisma} (${(monster.charisma>=10 ? "+":"")}${(monster.charisma-monster.charisma%2-10)/2})`
+            break;
+
+        case 4:
+            //proficiencies
+            top.querySelector("property-line:nth-child(5) p").innerHTML = ""
+            top.querySelector("property-line:nth-child(6) p").innerHTML = ""
+            const profList = monster.proficiencies
+            let profSaveExists = false
+            let profSkillExists = false
+            profList.forEach(proficiency => {
+                const proficiencyTypeArray = proficiency.proficiency.index.split("-")
+                const nameArray = proficiency.proficiency.name.split(" ")
+                if (proficiencyTypeArray[0] === "saving") {
+                    profSaveExists = true
+                    if(top.querySelector("property-line:nth-child(5) p").innerHTML === ""){
+                        top.querySelector("property-line:nth-child(5) p").innerHTML += `${nameArray[nameArray.length-1]}`
+                    }else{
+                        top.querySelector("property-line:nth-child(5) p").innerHTML += `, ${nameArray[nameArray.length-1]}`
+                    }
+                    top.querySelector("property-line:nth-child(5) p").innerHTML += ` ${proficiency.value >= 0 ? `+${proficiency.value}` : `-${proficiency.value}`}`
+                }else if (proficiencyTypeArray[0] === "skill") {
+                    profSkillExists = true
+                    if(top.querySelector("property-line:nth-child(6) p").innerHTML === ""){
+                        top.querySelector("property-line:nth-child(6) p").innerHTML += `${nameArray[nameArray.length-1]}`
+                    }else{
+                        top.querySelector("property-line:nth-child(6) p").innerHTML += `, ${nameArray[nameArray.length-1]}`
+                    }
+                    top.querySelector("property-line:nth-child(6) p").innerHTML += ` ${proficiency.value >= 0 ? `+${proficiency.value}` : `-${proficiency.value}`}`
+                }
+            })
+            if (profSaveExists === false){
+                top.querySelector("property-line:nth-child(5) h4").innerHTML = ""
+            }
+            if (profSkillExists === false){
+                top.querySelector("property-line:nth-child(6) h4").innerHTML = ""
+            }
+            break;
+            
+        case 5:
+            //proficiency bonus
+            top.querySelector("property-line:nth-child(12) p:nth-child(4)").innerHTML = `+${monster.proficiency_bonus}`
+            break;
+
+        case 6:
+            //damage resistances
+            if (!monster.damage_resistances.length > 0){
+                top.querySelector("property-line:nth-child(7) h4").innerHTML = ""
+                top.querySelector("property-line:nth-child(7) p").innerHTML = ""
+            }else{
+                firstIter = true
+                top.querySelector("property-line:nth-child(7) p").innerHTML = ""
+                monster.damage_resistances.forEach(resistance => {
+                    if (!firstIter) {
+                        top.querySelector("property-line:nth-child(7) p").innerHTML += ", "
+                    }
+                    top.querySelector("property-line:nth-child(7) p").innerHTML += resistance
+                    firstIter = false
+                })
+            };
+            break;
+
+        case 7:
+            //damage immunities
+            if (!monster.damage_immunities.length > 0){
+                top.querySelector("property-line:nth-child(8) h4").innerHTML = ""
+                top.querySelector("property-line:nth-child(8) p").innerHTML = ""
+            }else{
+                firstIter = true
+                top.querySelector("property-line:nth-child(8) p").innerHTML = ""
+                monster.damage_immunities.forEach(immunity => {
+                    if (!firstIter) {
+                        top.querySelector("property-line:nth-child(8) p").innerHTML += ", "
+                    }
+                    top.querySelector("property-line:nth-child(8) p").innerHTML += immunity
+                    firstIter = false
+                })
+            };
+            break;
+
+        case 8:
+            //senses
+            top.querySelector("property-line:nth-child(10) p").innerHTML = `${monster.senses.blindsight ? `Blindsight ${monster.senses.blindsight}, ` : ""}${monster.senses.darkvision ? `Darkvision ${monster.senses.darkvision}, ` : ""}${monster.senses.tremorsense ? `Tremorsense ${monster.senses.tremorsense}, ` : ""}${monster.senses.truesight ? `Truesight ${monster.senses.truesight}, ` : ""}Passive Perception ${monster.senses.passive_perception}`
+            break;
+
+        case 9:
+            //insert actions before the end of the monster stat block
+            for (let i = 0; i < monster.actions.length; i++) {
+                let html = ""
+                if (monster.actions[i].spellcasting) {
+                    html = `
+                    <property-block>
+                        <h4>${monster.actions[i].name}</h4>
+                        <p class="spellcasting">${monster.actions[i].desc}</p>
+                    </property-block>`
+                }else if (monster.actions[i].usage){
+                    if (monster.actions[i].usage.type === "per day") {
+                        html = `
+                        <property-block>
+                            <h4>${monster.actions[i].name} (${monster.actions[i].usage.times}/Day)</h4>
+                        <p>${monster.actions[i].desc}</p>
+                        </property-block>`
+                    }else if (monster.actions[i].usage.type === "recharge on roll"){
+                        html = `
+                        <property-block>
+                            <h4>${monster.actions[i].name} (Recharge ${monster.actions[i].usage.min_value}-8)</h4>
+                            <p>${monster.actions[i].desc.replace(/(^|)(\n.+ Breath)(|$)/ig, '\n\n</p><h4>$2</h4><p>')}</p>
+                        </property-block>`
+                    }
+                }else{
+                    html = `
+                    <property-block>
+                        <h4>${monster.actions[i].name}</h4>
+                        <p>${monster.actions[i].desc}</p>
+                    </property-block>`
+                }
+                statBlock.insertAdjacentHTML("beforeend", html)
+            }
+            break;
+
+        case 10:
+            //monster name
+            heading.querySelector("h1").innerHTML = `${monster.name}`
+            break;
+
+        case 11:
+            //monster name
+            heading.querySelector("h1").innerHTML = `${monster.name}`
+            break;
+
+        case 12:
+            //monster name
+            heading.querySelector("h1").innerHTML = `${monster.name}`
+            break;
+
+        case 13:
+            //monster name
+            heading.querySelector("h1").innerHTML = `${monster.name}`
+            break;
+
+        case 14:
+            //monster name
+            heading.querySelector("h1").innerHTML = `${monster.name}`
+            break;
+
+        case 15:
+            //monster name
+            heading.querySelector("h1").innerHTML = `${monster.name}`
+            break;
+
+        case 16:
+            //monster name
+            heading.querySelector("h1").innerHTML = `${monster.name}`
+            break;
+
+        case 17:
+            //monster name
+            heading.querySelector("h1").innerHTML = `${monster.name}`
+            break;
+    
+        default:
+            break;
+    }
     //monster size, type and alignment
     heading.querySelector("h2").innerHTML = `${monster.size} ${monster.type}, ${monster.alignment}`
-    //monster armor class
-    top.querySelector("property-line:nth-child(1) p").innerHTML = ` ${monster.armor_class[0].value}${monster.armor_class[0].type != "armor" ? ` (${monster.armor_class[0].type} armor)` : ""}`
-    //monster hit points
-    top.querySelector("property-line:nth-child(2) p").innerHTML = ` ${monster.hit_points} (${monster.hit_points_roll})`
     //monster speed
     top.querySelector("property-line:nth-child(3) p").innerHTML = generateFullSpeedText(monster.speed)
-    //stats and modifiers
-    const statList = top.querySelector("abilities-block:nth-child(4)").shadowRoot
-    statList.querySelector("#str").innerHTML = `${monster.strength} (${(monster.strength>=10 ? "+":"")}${(monster.strength-monster.strength%2-10)/2})`
-    statList.querySelector("#dex").innerHTML = `${monster.dexterity} (${(monster.dexterity>=10 ? "+":"")}${(monster.dexterity-monster.dexterity%2-10)/2})`
-    statList.querySelector("#con").innerHTML = `${monster.constitution} (${(monster.constitution>=10 ? "+":"")}${(monster.constitution-monster.constitution%2-10)/2})`
-    statList.querySelector("#int").innerHTML = `${monster.intelligence} (${(monster.intelligence>=10 ? "+":"")}${(monster.intelligence-monster.intelligence%2-10)/2})`
-    statList.querySelector("#wis").innerHTML = `${monster.wisdom} (${(monster.wisdom>=10 ? "+":"")}${(monster.wisdom-monster.wisdom%2-10)/2})`
-    statList.querySelector("#cha").innerHTML = `${monster.charisma} (${(monster.charisma>=10 ? "+":"")}${(monster.charisma-monster.charisma%2-10)/2})`
-    //proficiencies
-    const profList = monster.proficiencies
-    let profSaveExists = false
-    let profSkillExists = false
-    profList.forEach(proficiency => {
-        const proficiencyTypeArray = proficiency.proficiency.index.split("-")
-        const nameArray = proficiency.proficiency.name.split(" ")
-        if (proficiencyTypeArray[0] === "saving") {
-            profSaveExists = true
-            if(top.querySelector("property-line:nth-child(5) p").innerHTML === ""){
-                top.querySelector("property-line:nth-child(5) p").innerHTML += `${nameArray[nameArray.length-1]}`
-            }else{
-                top.querySelector("property-line:nth-child(5) p").innerHTML += `, ${nameArray[nameArray.length-1]}`
-            }
-            top.querySelector("property-line:nth-child(5) p").innerHTML += ` ${proficiency.value >= 0 ? `+${proficiency.value}` : `-${proficiency.value}`}`
-        }else if (proficiencyTypeArray[0] === "skill") {
-            profSkillExists = true
-            if(top.querySelector("property-line:nth-child(6) p").innerHTML === ""){
-                top.querySelector("property-line:nth-child(6) p").innerHTML += `${nameArray[nameArray.length-1]}`
-            }else{
-                top.querySelector("property-line:nth-child(6) p").innerHTML += `, ${nameArray[nameArray.length-1]}`
-            }
-            top.querySelector("property-line:nth-child(6) p").innerHTML += ` ${proficiency.value >= 0 ? `+${proficiency.value}` : `-${proficiency.value}`}`
-        }
-    })
-    if (profSaveExists === false){
-        top.querySelector("property-line:nth-child(5) h4").innerHTML = ""
-    }
-    if (profSkillExists === false){
-        top.querySelector("property-line:nth-child(6) h4").innerHTML = ""
-    }
+
     
-    //damage resistances
-    if (!monster.damage_resistances.length > 0){
-        top.querySelector("property-line:nth-child(7) h4").innerHTML = ""
-        top.querySelector("property-line:nth-child(7) p").innerHTML = ""
-    }else{
-        firstIter = true
-        top.querySelector("property-line:nth-child(7) p").innerHTML = ""
-        monster.damage_resistances.forEach(resistance => {
-            if (!firstIter) {
-                top.querySelector("property-line:nth-child(7) p").innerHTML += ", "
-            }
-            top.querySelector("property-line:nth-child(7) p").innerHTML += resistance
-            firstIter = false
-        })
-    };
-    //damage immunities
-    if (!monster.damage_immunities.length > 0){
-        top.querySelector("property-line:nth-child(8) h4").innerHTML = ""
-        top.querySelector("property-line:nth-child(8) p").innerHTML = ""
-    }else{
-        firstIter = true
-        top.querySelector("property-line:nth-child(8) p").innerHTML = ""
-        monster.damage_immunities.forEach(immunity => {
-            if (!firstIter) {
-                top.querySelector("property-line:nth-child(8) p").innerHTML += ", "
-            }
-            top.querySelector("property-line:nth-child(8) p").innerHTML += immunity
-            firstIter = false
-        })
-    };
+    
+    
     //condition immunities
     if (!monster.condition_immunities.length > 0){
         top.querySelector("property-line:nth-child(9) h4").innerHTML = ""
@@ -131,14 +286,12 @@ async function showMonster(monster_id){
             firstIter = false
         })
     };
-    //senses
-    top.querySelector("property-line:nth-child(10) p").innerHTML = `${monster.senses.blindsight ? `Blindsight ${monster.senses.blindsight}, ` : ""}${monster.senses.darkvision ? `Darkvision ${monster.senses.darkvision}, ` : ""}${monster.senses.tremorsense ? `Tremorsense ${monster.senses.tremorsense}, ` : ""}${monster.senses.truesight ? `Truesight ${monster.senses.truesight}, ` : ""}Passive Perception ${monster.senses.passive_perception}`
+    
     //languages
     top.querySelector("property-line:nth-child(11) p").innerHTML = `${monster.languages}`
     //challenge rating and xp
     top.querySelector("property-line:nth-child(12) p:nth-child(2)").innerHTML = `${monster.challenge_rating % 1 ? fractionize(monster.challenge_rating) : monster.challenge_rating} (${monster.xp} XP)`
-    //proficiency bonus
-    top.querySelector("property-line:nth-child(12) p:nth-child(4)").innerHTML = `+${monster.proficiency_bonus}`
+    
     //remove property-blocks
     statBlock.querySelectorAll("property-block").forEach(pb => {
         pb.outerHTML = ""
@@ -167,38 +320,7 @@ async function showMonster(monster_id){
         }
         top.insertAdjacentHTML("afterend", html)
     }
-    //insert actions before the end of the monster stat block
-    for (let i = 0; i < monster.actions.length; i++) {
-        let html = ""
-        if (monster.actions[i].spellcasting) {
-            html = `
-            <property-block>
-                <h4>${monster.actions[i].name}</h4>
-                <p class="spellcasting">${monster.actions[i].desc}</p>
-            </property-block>`
-        }else if (monster.actions[i].usage){
-            if (monster.actions[i].usage.type === "per day") {
-                html = `
-                <property-block>
-                    <h4>${monster.actions[i].name} (${monster.actions[i].usage.times}/Day)</h4>
-                    <p>${monster.actions[i].desc}</p>
-                </property-block>`
-            }else if (monster.actions[i].usage.type === "recharge on roll"){
-                html = `
-                <property-block>
-                    <h4>${monster.actions[i].name} (Recharge ${monster.actions[i].usage.min_value}-8)</h4>
-                    <p>${monster.actions[i].desc.replace(/(^|)(\n.+ Breath)(|$)/ig, '\n\n</p><h4>$2</h4><p>')}</p>
-                </property-block>`
-            }
-        }else{
-            html = `
-            <property-block>
-                <h4>${monster.actions[i].name}</h4>
-                <p>${monster.actions[i].desc}</p>
-            </property-block>`
-        }
-        statBlock.insertAdjacentHTML("beforeend", html)
-    }
+    
 
     //insert legendary actions before the end of the monster's stat block (if they exist)
     if(monster.legendary_actions.length > 0){
@@ -236,7 +358,5 @@ async function showMonster(monster_id){
             statBlock.insertAdjacentHTML("beforeend", html)
         }
     }
-    console.log(monster)
 }
 
-showMonster("ancient-bronze-dragon")
