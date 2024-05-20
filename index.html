@@ -16,13 +16,6 @@
     <script type="module" src="src/js/property-line.js"></script>
     <script type="module" src="src/js/property-block.js"></script>
     <style>
-        figure {
-            position: -webkit-sticky;
-            position: sticky;
-            right: 0;
-            width: 600px;
-            margin: 0 auto;
-        }
 
         p {
             white-space: pre-wrap;
@@ -60,17 +53,18 @@
 			max-width: 20rem;
 		}
 
-		/* figure {
+		figure {
 			position: -webkit-sticky;
 			position: sticky;
+            top : 0;
+            height : 100%;
 			width: 100%;
 			margin: 0;
 			-webkit-transform: translate3d(0, 0, 0);
 			-moz-transform: translate3d(0, 0, 0);
 			transform: translate3d(0, 0, 0);
-			background-color: #8a8a8a;
 			z-index: 0;
-		} */
+		}
 
 		figure>p {
 			text-align: center;
@@ -106,162 +100,198 @@
 			padding: 1rem;
 			font-size: 1.5rem;
 		}
+
+        #intro {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        body {
+            background-color: #f3f3f3;
+        }
+
+        .last-shown {
+            font-weight: bold;
+        }
+
+        .graph {
+            width: 50%;
+            margin: auto;
+        }
     </style>
 </head>
 <body>
+    <div id="intro">
+        <stat-block>
+            <creature-heading>
+                <h1>Introduction</h1>
+            </creature-heading>
+            <p>Cette page a été créée avec un but éducatif dans le cadre d'un projet d'étudiants à la HEIG-VD.
+Cette page s'intéresse à Donjons et Dragons, un jeu de rôle pour lequel des personnes se rencontrent.
+Chaque personne peut être soit un joueur, soit le maître de jeu (MJ).
+Chaque joueur a un personnage avec une classe (magicien, combattant, etc.) et l'incarne.
+Le MJ est le narrateur, le gardien des règles et celui qui joue tous les personnages non-joueurs.
+Une opposition fréquemment rencontrée pas les joueurs sont des monstres (avec la plupart des MJs).
+Ce sont ces monstres dont nous allons explorer les caractéristiques pour vous aider à les comprendre.
+Cette page a été réalisée en se basant sur dnd5eapi (https://www.dnd5eapi.co) et sur le travail de Val Markovic (Valloric) et d'autres contributeurs sur GitHub (https://github.com/Valloric/statblock5e)                
+            </p>
+        </stat-block>
+    </div>
+    <!--ajouter un paragraphe d'introduction qui explique ce qu'est Donjons et Dragons, comment ça se joue et le rôledes monstres-->
     <section id="scrolly">
         <article>
-        <div class="step" data-step="1">
-            <p>1</p>
-        </div>
-        <div class="step" data-step="2">
-            <p>2</p>
-        </div>
-        <div class="step" data-step="3">
-            <p>3</p>
-        </div>
-        <div class="step" data-step="4">
-            <p>4</p>
-        </div>
-        <div class="step" data-step="5">
-            <p>5</p>
-        </div>
-        <div class="step" data-step="6">
-            <p>6</p>
-        </div>
-        <div class="step" data-step="7">
-            <p>7</p>
-        </div>
-        <div class="step" data-step="8">
-            <p>8</p>
-        </div>
-        <div class="step" data-step="9">
-            <p>9</p>
-        </div>
-        <div class="step" data-step="10">
-            <p>10</p>
-        </div>
-        <div class="step" data-step="11">
-            <p>11</p>
-        </div>
-        <div class="step" data-step="12">
-            <p>12</p>
-        </div>
-        <div class="step" data-step="13">
-            <p>13</p>
-        </div>
-        <div class="step" data-step="14">
-            <p>14</p>
-        </div>
-        <div class="step" data-step="15">
-            <p>15</p>
-        </div>
-        <div class="step" data-step="16">
-            <p>16</p>
-        </div>
-        <div class="step" data-step="17">
-            <p>17</p>
-        </div>
-        <div class="step" data-step="18">
-            <p>18</p>
-        </div>
-    </article>
-    <figure>
-        <stat-block data-two-column style="--data-content-height: 900px;">
-            <creature-heading>
-                <h1>Animated Armor</h1>
-                <h2>Medium construct, unaligned</h2>
-            </creature-heading>
-  
-            <top-stats>
-                <property-line>
-                    <h4>Armor Class</h4>
-                    <p>18 (natural armor)</p>
-                </property-line>
-                <property-line>
-                    <h4>Hit Points</h4>
-                    <p>33 (6d8 + 6)</p>
-                </property-line>
-                <property-line>
-                    <h4>Speed</h4>
-                    <p>25ft</p>
-                </property-line>
-  
-                <abilities-block data-str="14"
-                                 data-dex="11"
-                                 data-con="13"
-                                 data-int="1"
-                                 data-wis="3"
-                                 data-cha="1">
-                </abilities-block>
-                <property-line>
-                    <h4>Saving Throws</h4>
-                    <p></p>
-                </property-line>
-                <property-line>
-                    <h4>Skills</h4>
-                    <p></p>
-                </property-line>
-                <property-line>
-                    <h4>Damage Resistances</h4>
-                    <p></p>
-                </property-line>
-                <property-line>
-                    <h4>Damage Immunities</h4>
-                    <p>poison, psychic</p>
-                </property-line>
-                <property-line>
-                    <h4>Condition Immunities</h4>
-                    <p>blinded, charmed, deafened, exhaustion, frightened, paralyzed,
-                    petrified, poisoned</p>
-                </property-line>
-                <property-line>
-                    <h4>Senses</h4>
-                    <p>blindsight 60 ft. (blind beyond this radius), passive Perception 6</p>
-                </property-line>
-                <property-line>
-                    <h4>Languages</h4>
-                    <p>—</p>
-                </property-line>
-                <property-line>
-                    <h4>Challenge</h4>
-                    <p>1 (200 XP)</p>
-                    <h4>Proficiency Bonus</h4>
-                    <p>2</p>
-                </property-line>
-            </top-stats>
-  
-            <property-block>
-                <h4>Antimagic Susceptibility.</h4>
-                <p>The armor is incapacitated while in the area of an <i>antimagic
-                field</i>.  If targeted by <i>dispel magic</i>, the armor must succeed
-                on a Constitution saving throw against the caster’s spell save DC or
-                fall unconscious for 1 minute.</p>
-            </property-block>
-            <property-block>
-                <h4>False Appearance.</h4>
-                <p>While the armor remains motionless, it is indistinguishable from a
-                normal suit of armor.</p>
-            </property-block>
-            
-            <h3 id="actions">Actions</h3>
-  
-            <property-block>
-                <h4>Multiattack.</h4>
-                <p>The armor makes two melee attacks.</p>
-            </property-block>
-  
-            <property-block>
-            <h4>Slam.</h4>
-            <p>
-                <i>Melee Weapon Attack:</i> +4 to hit, reach 5 ft., one target.
-                <i>Hit:</i> 5 (1d6 + 2) bludgeoning damage.
-            </p>
-            </property-block>
-        </stat-block>
-    </figure>
+            <div class="step" data-step="1">
+                <p>Chaque monstre a un nom unique, celui-ci est un élémentaire d'air</p>
+            </div>
+            <div class="step" data-step="2">
+                <p>Ils ont également des points de vie, lorsqu'ils tombent à 0 le monstre meurt.</p>
+            </div>
+            <div class="step" data-step="3">
+                <p>Ces points de vie sont protégés par une classe d'armure qui rends le monstre plus difficile à atteindre en utilisant une attaque. La classe d'armure de ce monstre se base sur sa dextérité</p>
+            </div>
+            <div class="step" data-step="4">
+                <p>C'est une de ses statistiques. À 10 une statitique est moyenne et ne donne pas de bonus. Le bonus augmente ou diminue tous les deux points. Il est donc à (-1) à 8 et 9, (+0) à 10 et 11 et (+1) à 12 et 13</p>
+            </div>
+            <div class="step" data-step="5">
+                <p>Le bonus de maîtrise peut également contribuer à la défense du monstre. en l'occurence, Ce n'est pas le cas pour l'élémentaire d'air.</p>
+            </div>
+            <div class="step" data-step="6">
+                <p>En effet, certains monstres ajoute leur bonus maîtrise à leurs jets de sauvetage qui leurs permettent d'éviter diverses effets néfastes. Ce bonus aide aussi  le monstre à utiliser les compétences qu'il maitrise.</p>
+            </div>
+            <div class="step" data-step="7">
+                <p>Une autre protection est la résistance aux dégâts. Le monstre ne prends que la moitié des dégâts des types cités. Ici, foudre, tonnerre (son) et dégâts physiques non-magiques.</p>
+            </div>
+            <div class="step" data-step="8">
+                <p>Il existe également des immunités aux dégâts (ici, poison). Une immunité réduit tout dégât de ce type à 0.</p>
+            </div>
+            <div class="step" data-step="9">
+                <p>Les sens du monstre indiquent ce qu'il peut percevoir. La perception passive indique à quel point il est attentif à son environnement. La vision dans le noir à 60 pieds indique que le monstre peut voir dans le noir jusqu'à une distance de 18m.</p>
+            </div>
+            <div class="step" data-step="10">
+                <p>Le monstre peut se déplacer. La vitesse indique la distance que le monstre peut parcourir chaque tour (6 secondes) et par quel moyen. L'élémentaire d'air peut parcourir 27m par tour en volant et flotte (hover) il ne tombe pas s'il est incapacité.</p>
+            </div>
+            <div class="step" data-step="11">
+                <p>Le monstre peut agir. Ces actions sont listées et décrivent tout ce qu'il peut faire.</p>
+            </div>
+            <div class="step" data-step="12">
+                <p>Il possède également une capacité spéciale qui décrit ce que la nature du monstre lui permets de faire. Celui-ce est fait d'air et ignore donc un certain nombre de contrainte d'une forme physique.</p>
+            </div>
+            <div class="step" data-step="13">
+                <p>L'élémentaire d'air n'en possède pas, mais un monstre peut également posséder des actions légendaires qu'il peut utiliser à la fin du tour d'une autre créature.</p>
+            </div>
+            <div class="step" data-step="14">
+                <p>L'élémentaire d'air est immunisé à certains effets de statut, il ne peut par exemple pas souffrir d'épuisement.</p>
+            </div>
+            <div class="step" data-step="15">
+                <p>Tous les monstres ont une taille un type et un alignement en-dessous de leur nom. La taille définit l'espace qu'ils occupent, le type définit ce qu'ils sont (c'est important pour certains sorts) et leur allignement définit vaguement leurs idéaux.</p>
+            </div>
+            <div class="step" data-step="16">
+                <p>Certains monstres peuvent communiquer. Les langues dans lesquelles ils peuvent le faire sont affichées sous "Languages"</p>
+            </div>
+            <div class="step" data-step="17">
+                <p>Enfin, le Challenge Rating/Puissance définit globalement le niveau de danger qu'un combat contre le monstre implique. Triompher du monstre offre une récompense en points d'expérience qui dépends de son CR.</p>
+            </div>
+        </article>
+        <figure>
+            <stat-block data-two-column style="--data-content-height: 450px;" id="monster">
+                <creature-heading>
+                    <h1>Animated Armor</h1>
+                    <h2>Medium construct, unaligned</h2>
+                </creature-heading>
     
+                <top-stats>
+                    <property-line>
+                        <h4>Armor Class</h4>
+                        <p>18 (natural armor)</p>
+                    </property-line>
+                    <property-line>
+                        <h4>Hit Points</h4>
+                        <p>33 (6d8 + 6)</p>
+                    </property-line>
+                    <property-line>
+                        <h4>Speed</h4>
+                        <p>25ft</p>
+                    </property-line>
+    
+                    <abilities-block data-str="14"
+                                    data-dex="11"
+                                    data-con="13"
+                                    data-int="1"
+                                    data-wis="3"
+                                    data-cha="1">
+                    </abilities-block>
+                    <property-line>
+                        <h4>Saving Throws</h4>
+                        <p></p>
+                    </property-line>
+                    <property-line>
+                        <h4>Skills</h4>
+                        <p></p>
+                    </property-line>
+                    <property-line>
+                        <h4>Damage Resistances</h4>
+                        <p></p>
+                    </property-line>
+                    <property-line>
+                        <h4>Damage Immunities</h4>
+                        <p>poison, psychic</p>
+                    </property-line>
+                    <property-line>
+                        <h4>Condition Immunities</h4>
+                        <p>blinded, charmed, deafened, exhaustion, frightened, paralyzed,
+                        petrified, poisoned</p>
+                    </property-line>
+                    <property-line>
+                        <h4>Senses</h4>
+                        <p>blindsight 60 ft. (blind beyond this radius), passive Perception 6</p>
+                    </property-line>
+                    <property-line>
+                        <h4>Languages</h4>
+                        <p>—</p>
+                    </property-line>
+                    <property-line>
+                        <h4>Challenge</h4>
+                        <p>1 (200 XP)</p>
+                        <h4>Proficiency Bonus</h4>
+                        <p>2</p>
+                    </property-line>
+                </top-stats>
+    
+                <property-block>
+                    <h4>Antimagic Susceptibility.</h4>
+                    <p>The armor is incapacitated while in the area of an <i>antimagic
+                    field</i>.  If targeted by <i>dispel magic</i>, the armor must succeed
+                    on a Constitution saving throw against the caster’s spell save DC or
+                    fall unconscious for 1 minute.</p>
+                </property-block>
+                <property-block>
+                    <h4>False Appearance.</h4>
+                    <p>While the armor remains motionless, it is indistinguishable from a
+                    normal suit of armor.</p>
+                </property-block>
+                
+                <h3 id="actions">Actions</h3>
+    
+                <property-block>
+                    <h4>Multiattack.</h4>
+                    <p>The armor makes two melee attacks.</p>
+                </property-block>
+    
+                <property-block>
+                <h4>Slam.</h4>
+                <p>
+                    <i>Melee Weapon Attack:</i> +4 to hit, reach 5 ft., one target.
+                    <i>Hit:</i> 5 (1d6 + 2) bludgeoning damage.
+                </p>
+                </property-block>
+
+                <h3 id="legendary-actions">Legendary Actions</h3>
+
+            </stat-block>
+        </figure>
     </section>
-    <script type="module" src="index.js"></script>  
+    <script type="module" src="index.js"></script>
+    <div class="graph" id="graph"><script type="module" src="graph.js"></script></div>
+    <div class="graph" id="graph2"><script type="module" src="graph2.js"></script></div>
 </body>
 </html>
